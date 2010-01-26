@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
+					   xmlns:mx="library://ns.adobe.com/flex/halo"
+					   xmlns:swiz="http://swiz.swizframework.org" xmlns:local="*">
+	<fx:Declarations>
+		<s:TraceTarget />
+		
+		<!--<swiz:Swiz beanProviders="{[new Beans()]}">
+			<swiz:config>
+				<swiz:SwizConfig eventPackages="com.soenkerohde.event.*"
+								 viewPackages="com.soenkerohde.view.*" />
+			</swiz:config>
+		</swiz:Swiz>-->
+		<swiz:Swiz>
+			<swiz:config>
+				<swiz:SwizConfig eventPackages="com.soenkerohde.example.event.*"
+								 viewPackages="com.soenkerohde.example.view.*" />
+			</swiz:config>
+			<swiz:beanProviders>
+				<local:Beans />
+			</swiz:beanProviders>
+		</swiz:Swiz>
+	</fx:Declarations>
+
+	<view:MainView left="10"
+				   right="10"
+				   top="10"
+				   bottom="10"
+				   xmlns:view="com.soenkerohde.example.view.*" />
+
+</s:WindowedApplication>

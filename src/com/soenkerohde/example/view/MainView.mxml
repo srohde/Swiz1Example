@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/halo">
+
+	<fx:Script>
+		<![CDATA[
+			import com.soenkerohde.example.event.TestEvent;
+			import com.soenkerohde.example.model.AppModel;
+			
+			
+			[Inject]
+			[Bindable]
+			public var model:AppModel;
+		]]>
+	</fx:Script>
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+
+	<s:Label text="{model.foo}" />
+	
+	<s:HGroup>
+		<s:TextInput id="testInput" text="Foo" />
+		<s:Button label="Send" click="dispatchEvent(new TestEvent(TestEvent.TEST, testInput.text))" />
+	</s:HGroup>
+
+</s:Group>
