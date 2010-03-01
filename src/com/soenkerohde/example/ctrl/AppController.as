@@ -2,6 +2,7 @@ package com.soenkerohde.example.ctrl
 {
 	import com.soenkerohde.example.event.TestEvent;
 	import com.soenkerohde.example.model.AppModel;
+	import com.soenkerohde.example.signal.TestSignal;
 
 	public class AppController
 	{
@@ -14,9 +15,16 @@ package com.soenkerohde.example.ctrl
 			trace("new AppController");
 		}
 
-		[Mediate(event="TestEvent.TEST", properties="value")]
+		[PostConstruct]
+		public function init():void
+		{
+			trace("init");
+		}
+
+		[Mediate(event="TestEvent.TEST", properties="value", priority="1")]
 		public function testHandler(value:String):void
 		{
+			trace("testHandler " + value);
 			model.foo = value;
 		}
 
@@ -24,6 +32,24 @@ package com.soenkerohde.example.ctrl
 		public function testHandlerEvent(event:TestEvent):void
 		{
 			trace("testHandlerEvent " + event.value);
+		}
+
+		[Mediate(event="TestEvent.TEST", priority="2")]
+		public function testEmptyHandlerEvent():void
+		{
+			trace("testEmptyHandlerEvent");
+		}
+
+		/*[MediateSignal]
+		   public function handleTestSignal(signal:TestSignal, value:String):void
+		   {
+		   trace("message " + value);
+		 }*/
+
+		[MediateSignal(type="com.soenkerohde.example.signal.TestSignal")]
+		public function handleTestSignal2(message:String):void
+		{
+			trace("handleTestSignal " + message);
 		}
 	}
 }

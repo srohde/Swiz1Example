@@ -1,29 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
-		 xmlns:mx="library://ns.adobe.com/flex/halo">
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 currentState="Processor">
 
 	<fx:Script>
 		<![CDATA[
 			import com.soenkerohde.example.event.TestEvent;
 			import com.soenkerohde.example.model.AppModel;
+			import com.soenkerohde.example.signal.TestSignal;
 			
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			
+			[Bindable]
+			[Inject]
+			public var model:AppModel;
+			
+			[Bindable]
+			[Inject("myList")]
+			public var myList:IList;
 			
 			[Inject]
+			public var testSignal:TestSignal;
+			
 			[Bindable]
-			public var model:AppModel;
+			[YahooFinance(tickerSymbol="ADBE", days="60", showBusyCursor="true")]
+			public var adobeStocks:IList;
+			
+			[Bindable]
+			[YahooFinance(tickerSymbol="MSFT", days="60", showBusyCursor="true")]
+			public var microsoftStocks:IList;
 		]]>
 	</fx:Script>
 	
+	<s:states>
+		<s:State name="Basics" />
+		<s:State name="Processor" />
+	</s:states>
+	
 	<s:layout>
-		<s:VerticalLayout/>
+		<s:BasicLayout/>
 	</s:layout>
 
-	<s:Label text="{model.foo}" />
+	<s:ButtonBar dataProvider="{new ArrayCollection(['Basics', 'Processor'])}" requireSelection="true"
+				 selectedIndex="1"
+				 change="currentState = event.currentTarget.dataProvider[event.newIndex]"/>
 	
-	<s:HGroup>
-		<s:TextInput id="testInput" text="Foo" />
-		<s:Button label="Send" click="dispatchEvent(new TestEvent(TestEvent.TEST, testInput.text))" />
-	</s:HGroup>
+	<s:VGroup includeIn="Basics" top="50" left="10" right="10" bottom="10">
+		<s:Label text="{model.foo}" />
+		
+		<s:HGroup>
+			<s:TextInput id="testInput" text="Foo" />
+			<s:Button label="Send" click="dispatchEvent(new TestEvent(TestEvent.TEST, testInput.text))" />
+		</s:HGroup>
+		
+		<s:HGroup>
+			<s:TextInput id="signalInput" text="Foo" />
+			<s:Button label="Send Signal" click="testSignal.dispatch(signalInput.text)" />
+		</s:HGroup>
+		
+		<s:List dataProvider="{myList}" />
+	</s:VGroup>
+	
+	<s:VGroup includeIn="Processor" top="50" left="10" right="10" bottom="10">
+		<s:Label text="Stock Prices last 60 days" />
+		<mx:LineChart id="chart" width="100%" height="100%" showDataTips="true" dataProvider="{adobeStocks}">
+			<mx:horizontalAxis>
+				<mx:CategoryAxis categoryField="date" title="Time" />
+			</mx:horizontalAxis>
+			<mx:verticalAxis>
+				<mx:LinearAxis title="Price" baseAtZero="false" />
+			</mx:verticalAxis>
+
+			<mx:series>
+				<mx:LineSeries dataProvider="{microsoftStocks}" displayName="Microsoft" xField="date" yField="price" />
+				<mx:LineSeries dataProvider="{adobeStocks}" displayName="Adobe" xField="date" yField="price" />
+			</mx:series>
+		</mx:LineChart>
+		<mx:Legend dataProvider="{chart}" />
+	</s:VGroup>
 
 </s:Group>

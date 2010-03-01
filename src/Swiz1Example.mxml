@@ -2,25 +2,29 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/halo"
-					   xmlns:swiz="http://swiz.swizframework.org" xmlns:local="*">
+					   xmlns:swiz="http://swiz.swizframework.org"
+					   xmlns:processor="com.soenkerohde.example.processor.*" xmlns:model="com.soenkerohde.example.model.*" xmlns:ctrl="com.soenkerohde.example.ctrl.*"
+					   width="800" height="600" xmlns:signal="com.soenkerohde.example.signal.*" xmlns:processors="com.foomonger.swizframework.processors.*">
 	<fx:Declarations>
-		<s:TraceTarget />
+
+		<s:TraceTarget includeCategory="true" includeLevel="true" includeTime="true" />
 		
-		<!--<swiz:Swiz beanProviders="{[new Beans()]}">
-			<swiz:config>
-				<swiz:SwizConfig eventPackages="com.soenkerohde.event.*"
-								 viewPackages="com.soenkerohde.view.*" />
-			</swiz:config>
-		</swiz:Swiz>-->
 		<swiz:Swiz>
 			<swiz:config>
 				<swiz:SwizConfig eventPackages="com.soenkerohde.example.event.*"
 								 viewPackages="com.soenkerohde.example.view.*" />
 			</swiz:config>
-			<swiz:beanProviders>
-				<local:Beans />
-			</swiz:beanProviders>
+			<swiz:BeanProvider>
+				<signal:TestSignal />
+				<model:AppModel />
+				<ctrl:AppController />
+			</swiz:BeanProvider>
+			<swiz:customProcessors>
+				<processor:YahooFinanceProcessor />
+				<processors:MediateSignalProcessor />
+			</swiz:customProcessors>
 		</swiz:Swiz>
+		
 	</fx:Declarations>
 
 	<view:MainView left="10"
