@@ -21,7 +21,7 @@
 			</swiz:BeanProvider>
 			<swiz:customProcessors>
 				<processor:YahooFinanceProcessor />
-				<processors:MediateSignalProcessor />
+				<processors:MediateSignalProcessor signalPackages="com.soenkerohde.example.signal.*" />
 			</swiz:customProcessors>
 		</swiz:Swiz>
 		

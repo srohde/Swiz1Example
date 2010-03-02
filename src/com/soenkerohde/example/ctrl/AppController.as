@@ -40,13 +40,7 @@ package com.soenkerohde.example.ctrl
 			trace("testEmptyHandlerEvent");
 		}
 
-		/*[MediateSignal]
-		   public function handleTestSignal(signal:TestSignal, value:String):void
-		   {
-		   trace("message " + value);
-		 }*/
-
-		[MediateSignal(type="com.soenkerohde.example.signal.TestSignal")]
+		[MediateSignal(type="TestSignal")]
 		public function handleTestSignal2(message:String):void
 		{
 			trace("handleTestSignal " + message);
