@@ -72,24 +72,12 @@ package com.soenkerohde.example.processor
 				return;
 			}
 
-			var args:Array = metadataTag.args;
+			var tickerSymbolArg:MetadataArg = metadataTag.getArg("tickerSymbol");
+			var daysArg:MetadataArg = metadataTag.getArg("days");
 
-			var tickerSymbol:String;
-			var days:Number;
-			var showBusyCursor:Boolean = false;
-
-			for each( var arg:MetadataArg in args )
+			if( tickerSymbolArg != null && daysArg != null )
 			{
-				if( arg.key == "tickerSymbol" )
-					tickerSymbol = arg.value;
-				if( arg.key == "days" )
-					days = Number(arg.value);
-				if( arg.key == "showBusyCursor" )
-					showBusyCursor = arg.value == "true";
-			}
-
-			if( tickerSymbol != null && !isNaN(days) )
-			{
+				var days:Number = Number(daysArg.value);
 				var today:Date = new Date();
 				// calculate start date by subtracting time in msc
 				var startDate:Date = new Date(today.getTime() - days * 24 * 60 * 60 * 1000);
@@ -104,15 +92,12 @@ package com.soenkerohde.example.processor
 
 				LOG.info("get stocks between " + startYear + "-" + startMonth + "-" + startDay + " and " + endYear + "-" + endMonth + "-" + endDay);
 
+				var tickerSymbol:String = tickerSymbolArg.value;
 				var url:String = StringUtil.substitute(serviceUrl, tickerSymbol, startYear, startMonth, startDay, endYear, endMonth, endDay);
 				var request:URLRequest = new URLRequest(url);
 
 				var urlRequestUtil:URLRequestUtil = new URLRequestUtil();
-				urlRequestUtil.executeURLRequest(request, resultHandler, faultHandler, null, null, [metadataTag, bean, showBusyCursor]);
-				if( showBusyCursor )
-				{
-					CursorManager.setBusyCursor();
-				}
+				urlRequestUtil.executeURLRequest(request, resultHandler, faultHandler, null, null, [metadataTag, bean]);
 			}
 			else
 			{
@@ -120,14 +105,10 @@ package com.soenkerohde.example.processor
 			}
 		}
 
-		protected function resultHandler(event:Event, metadataTag:IMetadataTag, bean:Bean, showBusyCursor:Boolean):void
+		protected function resultHandler(event:Event, metadataTag:IMetadataTag, bean:Bean):void
 		{
 			var data:String = URLLoader(event.currentTarget).data as String;
 			bean.source[metadataTag.host.name] = getListFromCVS(data);
-			if( showBusyCursor )
-			{
-				CursorManager.removeBusyCursor();
-			}
 		}
 
 		protected function faultHandler(event:Event):void

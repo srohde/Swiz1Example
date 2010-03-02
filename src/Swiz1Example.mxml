@@ -15,9 +15,9 @@
 								 viewPackages="com.soenkerohde.example.view.*" />
 			</swiz:config>
 			<swiz:BeanProvider>
-				<signal:TestSignal />
 				<model:AppModel />
 				<ctrl:AppController />
+				<signal:TestSignal />
 			</swiz:BeanProvider>
 			<swiz:customProcessors>
 				<processor:YahooFinanceProcessor />

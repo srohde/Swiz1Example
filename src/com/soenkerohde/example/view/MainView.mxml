@@ -25,11 +25,11 @@
 			public var testSignal:TestSignal;
 			
 			[Bindable]
-			[YahooFinance(tickerSymbol="ADBE", days="60", showBusyCursor="true")]
+			[YahooFinance(tickerSymbol="ADBE", days="60")]
 			public var adobeStocks:IList;
 			
 			[Bindable]
-			[YahooFinance(tickerSymbol="MSFT", days="60", showBusyCursor="true")]
+			[YahooFinance(tickerSymbol="MSFT", days="60")]
 			public var microsoftStocks:IList;
 		]]>
 	</fx:Script>
