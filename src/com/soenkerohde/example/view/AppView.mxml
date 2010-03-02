@@ -8,13 +8,9 @@
 		<![CDATA[
 			import com.soenkerohde.example.model.AppModel;
 			
-			[Bindable]
-			[Inject]
-			public var model:AppModel;
+			import mx.collections.ArrayCollection;
 			
-			[Bindable]
-			[Inject("username")]
-			public var username:String;
+			
 			
 		]]>
 	</fx:Script>
@@ -28,34 +24,10 @@
 		<s:BasicLayout/>
 	</s:layout>
 
-	<s:HGroup bottom="10" right="10">
-	<!--<s:ButtonBar dataProvider="{new ArrayCollection(['Basics', 'Processor'])}" requireSelection="true"
-				 selectedIndex="1"
-				 change="currentState = event.currentTarget.dataProvider[event.newIndex]"/>-->
-		<s:Button label="YahooFinance" click="currentState = 'chart'" />
-	</s:HGroup>
-	
-	<s:Label top="10" right="10" text="Welcome {model.user.username}" />
-	<s:Label top="30" right="10" text="Welcome {username}" />
+	<s:ButtonBar top="10" left="10" dataProvider="{new ArrayCollection(['login', 'chart'])}" requireSelection="true"
+			 change="currentState = event.currentTarget.dataProvider[event.newIndex]"/>
 	
 	<view:LoginView includeIn="login" horizontalCenter="0" verticalCenter="0" />
 	<view:ChartView includeIn="chart" top="50" left="10" right="10" bottom="40" />
-
-	
-	<!--<s:VGroup includeIn="Basics" top="50" left="10" right="10" bottom="10">
-		<s:Label text="{model.foo}" />
-		
-		<s:HGroup>
-			<s:TextInput id="testInput" text="Foo" />
-			<s:Button label="Send" click="dispatchEvent(new TestEvent(TestEvent.TEST, testInput.text))" />
-		</s:HGroup>
-		
-		<s:HGroup>
-			<s:TextInput id="signalInput" text="Foo" />
-			<s:Button label="Send Signal" click="testSignal.dispatch(signalInput.text)" />
-		</s:HGroup>
-		
-		<s:List dataProvider="{myList}" />
-	</s:VGroup>-->
 
 </s:Group>
