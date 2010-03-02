@@ -7,9 +7,6 @@
 	<fx:Script>
 		<![CDATA[
 			import com.soenkerohde.example.model.AppModel;
-			import com.soenkerohde.example.signal.TestSignal;
-			
-			import mx.collections.IList;
 			
 			[Bindable]
 			[Inject]
@@ -19,8 +16,6 @@
 			[Inject("username")]
 			public var username:String;
 			
-			[Inject]
-			public var testSignal:TestSignal;
 		]]>
 	</fx:Script>
 	

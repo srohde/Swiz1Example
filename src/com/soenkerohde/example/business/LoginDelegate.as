@@ -1,6 +1,7 @@
 package com.soenkerohde.example.business
 {
 	import com.soenkerohde.example.domain.User;
+	import com.soenkerohde.example.signal.LoginSignal;
 
 	import mx.rpc.AsyncToken;
 
@@ -10,6 +11,9 @@ package com.soenkerohde.example.business
 	{
 
 		protected var util:MockDelegateUtil;
+
+		[Inject]
+		public var loginSignal:LoginSignal;
 
 		public function LoginDelegate()
 		{
@@ -22,6 +26,14 @@ package com.soenkerohde.example.business
 			user.username = username;
 			user.id = 1;
 			return util.createMockResult(user);
+		}
+
+		public function loginWithSignal(username:String, password:String):void
+		{
+			var user:User = new User();
+			user.username = username;
+			user.id = 1;
+			loginSignal.dispatch(user);
 		}
 	}
 }

@@ -6,25 +6,36 @@
 	<fx:Script>
 		<![CDATA[
 			import com.soenkerohde.example.event.LoginEvent;
+			import com.soenkerohde.example.signal.LoginInvokeSignal;
 			
 			import mx.logging.ILogger;
 			import mx.logging.Log;
 			
 			private static const LOG:ILogger = Log.getLogger("LoginView");
 			
+			[Inject]
+			public var loginInvokeSignal:LoginInvokeSignal;
+			
 			protected function loginClickHandler(event:MouseEvent):void
 			{
-				if(dispatchEvent(new LoginEvent(LoginEvent.LOGIN, username.text, password.text))){
-					// if we arrive here LoginEvent was not canceled (no preventDefault called by any event handler)
-					LOG.info("LoginEvent not cancelled");
+				if(byEvent.selected){
+					if(dispatchEvent(new LoginEvent(LoginEvent.LOGIN, username.text, password.text))){
+						// if we arrive here LoginEvent was not canceled (no preventDefault called by any event handler)
+						LOG.info("LoginEvent not cancelled");
+					}else{
+						LOG.info("LoginEvent cancelled");
+					}
 				}else{
-					LOG.info("LoginEvent cancelled");
+					loginInvokeSignal.dispatch(username.text, password.text);
 				}
 			}
 		]]>
 	</fx:Script>
 
 	<mx:Form>
+		<s:RadioButton id="byEvent" label="byEvent" selected="true" groupName="loginType" />
+		<s:RadioButton id="bySignal" label="bySignal" groupName="loginType" />
+		
 		<mx:FormItem label="Username">
 			<s:TextInput id="username" text="Some Dude" />
 		</mx:FormItem>

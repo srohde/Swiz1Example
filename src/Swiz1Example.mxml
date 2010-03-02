@@ -26,10 +26,12 @@
 				<!-- Login related beans -->
 				<ctrl:LoginController />
 				<business:LoginDelegate />
+				<swiz:ServiceRequestUtil />
+				
+				<!-- for login with as3-signals example -->
+				<signal:LoginInvokeSignal />
 				<signal:LoginSignal />
 				
-				<swiz:ServiceRequestUtil />
-				<signal:TestSignal />
 			</swiz:BeanProvider>
 			<swiz:customProcessors>
 				<processor:YahooFinanceProcessor />

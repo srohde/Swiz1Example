@@ -54,6 +54,13 @@ package com.soenkerohde.example.ctrl
 			model.user = user;
 		}
 
+		[MediateSignal(type="LoginInvokeSignal")]
+		public function loginInvokeSignal(username:String, password:String):void
+		{
+			LOG.info("loginInvokeSignal " + username + "/" + password);
+			delegate.loginWithSignal(username, password);
+		}
+
 		[MediateSignal(type="LoginSignal")]
 		public function loginSignal(user:User):void
 		{

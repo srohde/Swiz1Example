@@ -5,5 +5,7 @@ package com.soenkerohde.example.business
 	public interface ILoginDelegate
 	{
 		function login(username:String, password:String):AsyncToken;
+
+		function loginWithSignal(username:String, password:String):void;
 	}
 }
