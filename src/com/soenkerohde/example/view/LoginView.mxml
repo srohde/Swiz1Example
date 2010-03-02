@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+
+	<fx:Script>
+		<![CDATA[
+			import com.soenkerohde.example.event.LoginEvent;
+			
+			import mx.logging.ILogger;
+			import mx.logging.Log;
+			
+			private static const LOG:ILogger = Log.getLogger("LoginView");
+			
+			protected function loginClickHandler(event:MouseEvent):void
+			{
+				if(dispatchEvent(new LoginEvent(LoginEvent.LOGIN, username.text, password.text))){
+					// if we arrive here LoginEvent was not canceled (no preventDefault called by any event handler)
+					LOG.info("LoginEvent not cancelled");
+				}else{
+					LOG.info("LoginEvent cancelled");
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<mx:Form>
+		<mx:FormItem label="Username">
+			<s:TextInput id="username" text="Some Dude" />
+		</mx:FormItem>
+		<mx:FormItem label="Password" direction="horizontal">
+			<s:TextInput id="password" displayAsPassword="true" text="" creationComplete="{password.setFocus()}" />
+			<s:Button label="Login" click="loginClickHandler(event)" />
+		</mx:FormItem>
+	</mx:Form>
+</s:Group>

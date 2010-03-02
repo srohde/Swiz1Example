@@ -2,15 +2,13 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 currentState="Processor">
+		 currentState="login" xmlns:view="com.soenkerohde.example.view.*">
 
 	<fx:Script>
 		<![CDATA[
-			import com.soenkerohde.example.event.TestEvent;
 			import com.soenkerohde.example.model.AppModel;
 			import com.soenkerohde.example.signal.TestSignal;
 			
-			import mx.collections.ArrayCollection;
 			import mx.collections.IList;
 			
 			[Bindable]
@@ -18,36 +16,38 @@
 			public var model:AppModel;
 			
 			[Bindable]
-			[Inject("myList")]
-			public var myList:IList;
+			[Inject("username")]
+			public var username:String;
 			
 			[Inject]
 			public var testSignal:TestSignal;
-			
-			[Bindable]
-			[YahooFinance(tickerSymbol="ADBE", days="60")]
-			public var adobeStocks:IList;
-			
-			[Bindable]
-			[YahooFinance(tickerSymbol="MSFT", days="60")]
-			public var microsoftStocks:IList;
 		]]>
 	</fx:Script>
 	
 	<s:states>
-		<s:State name="Basics" />
-		<s:State name="Processor" />
+		<s:State name="login" />
+		<s:State name="chart" />
 	</s:states>
 	
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
 
-	<s:ButtonBar dataProvider="{new ArrayCollection(['Basics', 'Processor'])}" requireSelection="true"
+	<s:HGroup bottom="10" right="10">
+	<!--<s:ButtonBar dataProvider="{new ArrayCollection(['Basics', 'Processor'])}" requireSelection="true"
 				 selectedIndex="1"
-				 change="currentState = event.currentTarget.dataProvider[event.newIndex]"/>
+				 change="currentState = event.currentTarget.dataProvider[event.newIndex]"/>-->
+		<s:Button label="YahooFinance" click="currentState = 'chart'" />
+	</s:HGroup>
 	
-	<s:VGroup includeIn="Basics" top="50" left="10" right="10" bottom="10">
+	<s:Label top="10" right="10" text="Welcome {model.user.username}" />
+	<s:Label top="30" right="10" text="Welcome {username}" />
+	
+	<view:LoginView includeIn="login" horizontalCenter="0" verticalCenter="0" />
+	<view:ChartView includeIn="chart" top="50" left="10" right="10" bottom="40" />
+
+	
+	<!--<s:VGroup includeIn="Basics" top="50" left="10" right="10" bottom="10">
 		<s:Label text="{model.foo}" />
 		
 		<s:HGroup>
@@ -61,24 +61,6 @@
 		</s:HGroup>
 		
 		<s:List dataProvider="{myList}" />
-	</s:VGroup>
-	
-	<s:VGroup includeIn="Processor" top="50" left="10" right="10" bottom="10">
-		<s:Label text="Stock Prices last 60 days" />
-		<mx:LineChart id="chart" width="100%" height="100%" showDataTips="true" dataProvider="{adobeStocks}">
-			<mx:horizontalAxis>
-				<mx:CategoryAxis categoryField="date" title="Time" />
-			</mx:horizontalAxis>
-			<mx:verticalAxis>
-				<mx:LinearAxis title="Price" baseAtZero="false" />
-			</mx:verticalAxis>
-
-			<mx:series>
-				<mx:LineSeries dataProvider="{microsoftStocks}" displayName="Microsoft" xField="date" yField="price" />
-				<mx:LineSeries dataProvider="{adobeStocks}" displayName="Adobe" xField="date" yField="price" />
-			</mx:series>
-		</mx:LineChart>
-		<mx:Legend dataProvider="{chart}" />
-	</s:VGroup>
+	</s:VGroup>-->
 
 </s:Group>

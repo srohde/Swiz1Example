@@ -1,43 +1,28 @@
 package com.soenkerohde.example.ctrl
 {
-	import com.soenkerohde.example.event.TestEvent;
 	import com.soenkerohde.example.model.AppModel;
-	import com.soenkerohde.example.signal.TestSignal;
+
+	import mx.logging.ILogger;
+	import mx.logging.Log;
 
 	public class AppController
 	{
+		private static const LOG:ILogger = Log.getLogger("AppController");
 
-		[Autowire]
+		[Inject]
 		public var model:AppModel;
+
 
 		public function AppController()
 		{
-			trace("new AppController");
+			// Note that now Injection has not happened yet like meaning all
+			// members marked with Inject are still null
 		}
 
 		[PostConstruct]
 		public function init():void
 		{
-			trace("init");
-		}
-
-		[Mediate(event="TestEvent.TEST", properties="value", priority="1")]
-		public function testHandler(value:String):void
-		{
-			trace("testHandler " + value);
-			model.foo = value;
-		}
-
-		[Mediate(event="TestEvent.TEST")]
-		public function testHandlerEvent(event:TestEvent):void
-		{
-			trace("testHandlerEvent " + event.value);
-		}
-
-		[Mediate(event="TestEvent.TEST", priority="2")]
-		public function testEmptyHandlerEvent():void
-		{
-			trace("testEmptyHandlerEvent");
+			LOG.info("PostConstruct. Injection done like e.g. model " + model);
 		}
 
 		[MediateSignal(type="TestSignal")]

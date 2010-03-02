@@ -1,20 +1,16 @@
 package com.soenkerohde.example.model
 {
-	import mx.collections.ArrayCollection;
+	import com.soenkerohde.example.domain.User;
 
 	public class AppModel
 	{
 
 		[Bindable]
-		public var foo:String = "Hello";
-
-		[Bindable]
-		[Outject(name="myList")]
-		public var myList:ArrayCollection = new ArrayCollection(["Foo", "Bar"]);
+		[Outject(name="username")]
+		public var user:User;
 
 		public function AppModel()
 		{
-			trace("new AppModel");
 		}
 	}
 }
