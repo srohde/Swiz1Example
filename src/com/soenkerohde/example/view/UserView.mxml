@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.soenkerohde.example.event.UserCRUDEvent;
+			import com.soenkerohde.example.model.domain.User;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			import mx.events.FlexEvent;
+			
+			[Bindable]
+			[Inject("appModel.users")]
+			public var users:IList;
+
+			protected function createButton_clickHandler(event:MouseEvent):void
+			{
+				var user:User = new User(NaN, newUsername.text);
+				dispatchEvent(new UserCRUDEvent(UserCRUDEvent.CREATE, user));
+			}
+
+
+			protected function readButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new UserCRUDEvent(UserCRUDEvent.READ, userList.selectedItem as User));
+			}
+
+
+			protected function udpateButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new UserCRUDEvent(UserCRUDEvent.UPDATE, userList.selectedItem as User));
+			}
+
+
+			protected function deleteButton_clickHandler(event:MouseEvent):void
+			{
+				dispatchEvent(new UserCRUDEvent(UserCRUDEvent.DELETE, userList.selectedItem as User));
+			}
+
+		]]>
+	</fx:Script>
+	
+	<!-- Check out CommandController to see how all events are handled in one event listener -->
+	
+	<s:HGroup>
+		<s:Button id="createButton" label="Dispatch CreateEvent" click="createButton_clickHandler(event)" enabled="{newUsername.text != ''}" />
+		<s:TextInput id="newUsername" />
+	</s:HGroup>
+	
+	<s:Button id="readButton" label="Dispatch ReadEvent" click="readButton_clickHandler(event)" enabled="{userList.selectedItem != null}" />
+	<s:Button id="udpateButton" label="Dispatch UpdateEvent" click="udpateButton_clickHandler(event)" enabled="{userList.selectedItem != null}" />
+	<s:Button id="deleteButton" label="Dispatch DeleteEvent" click="deleteButton_clickHandler(event)" enabled="{userList.selectedItem != null}" />
+	
+	<s:List id="userList" dataProvider="{users}" labelField="username" />
+	
+</s:Group>

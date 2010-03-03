@@ -1,6 +1,6 @@
 package com.soenkerohde.example.ctrl
 {
-	import com.soenkerohde.example.business.ILoginDelegate;
+	import com.soenkerohde.example.business.IUserDelegate;
 	import com.soenkerohde.example.model.domain.User;
 	import com.soenkerohde.example.event.LoginEvent;
 	import com.soenkerohde.example.model.AppModel;
@@ -24,7 +24,7 @@ package com.soenkerohde.example.ctrl
 		 * Swiz will inject the LoginDelegate instance by type even if you define the interface.
 		 */
 		[Inject]
-		public var delegate:ILoginDelegate;
+		public var delegate:IUserDelegate;
 
 		/**
 		 * We could create an own instance of ServiceRequestUtil but best practice is to decleare

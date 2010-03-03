@@ -15,7 +15,7 @@ package com.soenkerohde.example.model.presentation
 		public var appIndex:int;
 
 		[Bindable]
-		public var navigation:IList = new ArrayCollection(["login", "chart", "command", "module"]);
+		public var navigation:IList = new ArrayCollection(["login", "chart", "user", "module"]);
 
 		public function AppPresentationModel()
 		{
@@ -33,7 +33,7 @@ package com.soenkerohde.example.model.presentation
 					appState = "chart";
 					break;
 				case 2:
-					appState = "command";
+					appState = "user";
 					break;
 				case 3:
 					appState = "module";

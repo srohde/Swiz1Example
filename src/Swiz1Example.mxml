@@ -31,14 +31,14 @@
 				
 				<!-- Login related beans -->
 				<ctrl:LoginController />
-				<business:LoginDelegate />
+				<business:UserDelegate />
 				<!-- for login with as3-signals example -->
 				<signal:LoginInvokeSignal />
 				<signal:LoginSignal />
 				<swiz:ServiceRequestUtil />
 				
 				<!-- command related beans -->
-				<ctrl:CommandController />
+				<ctrl:UserController />
 
 			</swiz:BeanProvider>
 			<swiz:customProcessors>

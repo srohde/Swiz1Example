@@ -18,7 +18,7 @@
 	<s:states>
 		<s:State name="login" />
 		<s:State name="chart" />
-		<s:State name="command" />
+		<s:State name="user" />
 		<s:State name="module" />
 	</s:states>
 	
@@ -32,7 +32,7 @@
 	
 	<view:LoginView includeIn="login" horizontalCenter="0" verticalCenter="0" />
 	<view:ChartView includeIn="chart" top="50" left="10" right="10" bottom="40" />
-	<view:CommandView includeIn="command" top="50" left="10" right="10" bottom="40" />
+	<view:UserView includeIn="user" top="50" left="10" right="10" bottom="40" />
 	<mx:ModuleLoader includeIn="module" top="50" left="10" right="10" bottom="40"
 					 url="module/MyModule.swf"/>
 
