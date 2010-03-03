@@ -2,32 +2,38 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 currentState="login" xmlns:view="com.soenkerohde.example.view.*">
+		 currentState="{model.appState}" xmlns:view="com.soenkerohde.example.view.*">
 
 	<fx:Script>
 		<![CDATA[
-			import com.soenkerohde.example.model.AppModel;
+			import com.soenkerohde.example.model.presentation.IAppPresentationModel;
 			
-			import mx.collections.ArrayCollection;
-			
-			
-			
+			[Bindable]
+			[Inject]
+			public var model:IAppPresentationModel;
+
 		]]>
 	</fx:Script>
 	
 	<s:states>
 		<s:State name="login" />
 		<s:State name="chart" />
+		<s:State name="command" />
+		<s:State name="module" />
 	</s:states>
 	
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
 
-	<s:ButtonBar top="10" left="10" dataProvider="{new ArrayCollection(['login', 'chart'])}" requireSelection="true"
-			 change="currentState = event.currentTarget.dataProvider[event.newIndex]"/>
+	<s:ButtonBar top="10" left="10" dataProvider="{model.navigation}" requireSelection="true"
+				 selectedIndex="{model.appIndex}"
+			 	 change="model.changeAppIndex(event.newIndex)"/>
 	
 	<view:LoginView includeIn="login" horizontalCenter="0" verticalCenter="0" />
 	<view:ChartView includeIn="chart" top="50" left="10" right="10" bottom="40" />
+	<view:CommandView includeIn="command" top="50" left="10" right="10" bottom="40" />
+	<mx:ModuleLoader includeIn="module" top="50" left="10" right="10" bottom="40"
+					 url="module/MyModule.swf"/>
 
 </s:Group>

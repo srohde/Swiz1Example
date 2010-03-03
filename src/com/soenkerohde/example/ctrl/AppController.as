@@ -12,7 +12,6 @@ package com.soenkerohde.example.ctrl
 		[Inject]
 		public var model:AppModel;
 
-
 		public function AppController()
 		{
 			// Note that now Injection has not happened yet like meaning all
@@ -25,10 +24,5 @@ package com.soenkerohde.example.ctrl
 			LOG.info("PostConstruct. Injection done like e.g. model " + model);
 		}
 
-		[MediateSignal(type="TestSignal")]
-		public function handleTestSignal2(message:String):void
-		{
-			trace("handleTestSignal " + message);
-		}
 	}
 }

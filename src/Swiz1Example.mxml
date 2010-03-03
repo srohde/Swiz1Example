@@ -8,7 +8,7 @@
 						xmlns:ctrl="com.soenkerohde.example.ctrl.*"
 					    xmlns:signal="com.soenkerohde.example.signal.*"
 					xmlns:processors="com.foomonger.swizframework.processors.*"
-					xmlns:business="com.soenkerohde.example.business.*">
+					xmlns:business="com.soenkerohde.example.business.*" xmlns:storage="org.swizframework.storage.*" xmlns:presentation="com.soenkerohde.example.model.presentation.*">
 	
 	<fx:Declarations>
 
@@ -20,7 +20,10 @@
 								 viewPackages="com.soenkerohde.example.view.*" />
 			</swiz:config>
 			<swiz:BeanProvider>
-				<model:AppModel />
+				<swiz:Bean name="appModel">
+					<model:AppModel />
+				</swiz:Bean>
+				<presentation:AppPresentationModel />
 				<ctrl:AppController />
 				
 				<!-- Login related beans -->
@@ -32,6 +35,11 @@
 				<signal:LoginInvokeSignal />
 				<signal:LoginSignal />
 				
+				<!-- command related beans -->
+				<ctrl:CommandController />
+
+				<!-- Used for state persisting -->
+				<storage:SharedObjectBean name="Swiz1Example" />
 			</swiz:BeanProvider>
 			<swiz:customProcessors>
 				<processor:YahooFinanceProcessor />

@@ -9,8 +9,8 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import com.soenkerohde.example.domain.User;
 			import com.soenkerohde.example.event.LoginEvent;
-			import com.soenkerohde.example.model.AppModel;
 			import com.soenkerohde.example.signal.LoginInvokeSignal;
 			
 			import mx.logging.ILogger;
@@ -19,12 +19,8 @@
 			private static const LOG:ILogger = Log.getLogger("LoginView");
 			
 			[Bindable]
-			[Inject]
-			public var model:AppModel;
-			
-			[Bindable]
-			[Inject("username")]
-			public var loggedInUsername:String;
+			[Inject("appModel.user")]
+			public var user:User;
 			
 			[Inject]
 			public var loginInvokeSignal:LoginInvokeSignal;
@@ -57,6 +53,5 @@
 			<s:Button label="Login" click="loginClickHandler(event)" />
 		</mx:FormItem>
 	</mx:Form>
-	<s:Label text="1 Welcome {model.user.username}" />
-	<s:Label text="2 Welcome {loggedInUsername}" />
+	<s:Label text="Welcome {user.username}" />
 </s:Group>
