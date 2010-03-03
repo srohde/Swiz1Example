@@ -9,7 +9,7 @@
 	
 	<fx:Script>
 		<![CDATA[
-			import com.soenkerohde.example.domain.User;
+			import com.soenkerohde.example.model.domain.User;
 			import com.soenkerohde.example.event.LoginEvent;
 			import com.soenkerohde.example.signal.LoginInvokeSignal;
 			

@@ -20,26 +20,26 @@
 								 viewPackages="com.soenkerohde.example.view.*" />
 			</swiz:config>
 			<swiz:BeanProvider>
+				<!-- App level beans -->
 				<swiz:Bean name="appModel">
 					<model:AppModel />
 				</swiz:Bean>
+				<!-- Used for state persisting -->
+				<storage:SharedObjectBean name="Swiz1Example" />
 				<presentation:AppPresentationModel />
 				<ctrl:AppController />
 				
 				<!-- Login related beans -->
 				<ctrl:LoginController />
 				<business:LoginDelegate />
-				<swiz:ServiceRequestUtil />
-				
 				<!-- for login with as3-signals example -->
 				<signal:LoginInvokeSignal />
 				<signal:LoginSignal />
+				<swiz:ServiceRequestUtil />
 				
 				<!-- command related beans -->
 				<ctrl:CommandController />
 
-				<!-- Used for state persisting -->
-				<storage:SharedObjectBean name="Swiz1Example" />
 			</swiz:BeanProvider>
 			<swiz:customProcessors>
 				<processor:YahooFinanceProcessor />

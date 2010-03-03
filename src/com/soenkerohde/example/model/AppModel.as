@@ -1,6 +1,6 @@
 package com.soenkerohde.example.model
 {
-	import com.soenkerohde.example.domain.User;
+	import com.soenkerohde.example.model.domain.User;
 
 	import org.swizframework.storage.ISharedObjectBean;
 

@@ -1,6 +1,6 @@
 package com.soenkerohde.example.business
 {
-	import com.soenkerohde.example.domain.User;
+	import com.soenkerohde.example.model.domain.User;
 	import com.soenkerohde.example.signal.LoginSignal;
 
 	import mx.rpc.AsyncToken;

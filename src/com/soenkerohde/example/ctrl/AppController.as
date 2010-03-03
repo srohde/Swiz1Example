@@ -21,7 +21,10 @@ package com.soenkerohde.example.ctrl
 		[PostConstruct]
 		public function init():void
 		{
-			LOG.info("PostConstruct. Injection done like e.g. model " + model);
+			LOG.info("PostConstruct. Injection is complete e.g. model is set/injected: " + model);
+			// This could be the starting point of your application when
+			// you for instance make an initial service call etc.
+			// In that case inject the service delegate and call it here.
 		}
 
 	}

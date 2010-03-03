@@ -1,4 +1,4 @@
-package com.soenkerohde.example.domain
+package com.soenkerohde.example.model.domain
 {
 	[Bindable]
 	[RemoteClass("com.soenkerohde.example.domain.User")]

@@ -1,6 +1,6 @@
 package com.soenkerohde.example.signal
 {
-	import com.soenkerohde.example.domain.User;
+	import com.soenkerohde.example.model.domain.User;
 
 	import org.osflash.signals.Signal;
 
