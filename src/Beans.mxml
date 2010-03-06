@@ -9,6 +9,11 @@
 				   xmlns:business="com.soenkerohde.example.business.*"
 				   xmlns:storage="org.swizframework.storage.*"
 				   xmlns:presentation="com.soenkerohde.example.model.presentation.*">
+	<fx:Script>
+		<![CDATA[
+			import com.soenkerohde.example.model.presentation.MainPresentationModel;
+		]]>
+	</fx:Script>
 
 	<!-- App level beans -->
 	<swiz:Bean name="appModel">
@@ -19,6 +24,7 @@
 	<storage:SharedObjectBean name="Swiz1Example"/>
 	<presentation:AppPresentationModel/>
 	<ctrl:AppController/>
+	<swiz:Prototype type="{MainPresentationModel}"/>
 
 	<!-- Login related beans -->
 	<ctrl:LoginController/>
