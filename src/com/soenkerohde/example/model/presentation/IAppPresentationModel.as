@@ -8,11 +8,14 @@ package com.soenkerohde.example.model.presentation
 		function get appState():String;
 
 		[Bindable(event="propertyChange")]
-		function get appIndex():int;
-		
+		function get mainState():String;
+
+		[Bindable(event="propertyChange")]
+		function get mainIndex():int;
+
 		[Bindable(event="propertyChange")]
 		function get navigation():IList;
 
-		function changeAppIndex(index:int):void;
+		function changeMainIndex(index:int):void;
 	}
 }

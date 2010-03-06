@@ -47,7 +47,7 @@ package com.soenkerohde.example.ctrl
 		[Mediate(event="LoginEvent.LOGIN", priority="1")]
 		public function loginEventHandler(event:LoginEvent):void
 		{
-			if( event.username == "" || event.password == "" )
+			if (event.username == "" || event.password == "")
 			{
 				event.preventDefault();
 				event.stopImmediatePropagation();
@@ -81,6 +81,7 @@ package com.soenkerohde.example.ctrl
 			var user:User = event.result as User;
 			LOG.info("loginResultHandler " + user);
 			model.user = user;
+			model.appState = "main";
 		}
 
 		[MediateSignal(type="LoginInvokeSignal")]
@@ -94,6 +95,7 @@ package com.soenkerohde.example.ctrl
 		public function loginSignal(user:User):void
 		{
 			LOG.info("loginSignal " + user);
+			model.appState = "main";
 		}
 	}
 }

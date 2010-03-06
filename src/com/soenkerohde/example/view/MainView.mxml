@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:view="com.soenkerohde.example.view.*"
+		 currentState="{model.mainState}">
+
+	<fx:Script>
+		<![CDATA[
+			import com.soenkerohde.example.model.presentation.IAppPresentationModel;
+
+			[Bindable]
+			[Inject]
+			public var model:IAppPresentationModel;
+		]]>
+	</fx:Script>
+
+	<s:states>
+		<s:State name="chart"/>
+		<s:State name="user"/>
+		<s:State name="module"/>
+	</s:states>
+
+	<s:ButtonBar top="10"
+				 left="10"
+				 dataProvider="{model.navigation}"
+				 requireSelection="true"
+				 selectedIndex="{model.mainIndex}"
+				 change="model.changeMainIndex(event.newIndex)"/>
+
+	<view:ChartView includeIn="chart"
+					top="50"
+					left="10"
+					right="10"
+					bottom="40"/>
+	<view:UserView includeIn="user"
+				   top="50"
+				   left="10"
+				   right="10"
+				   bottom="40"/>
+	<mx:ModuleLoader includeIn="module"
+					 top="50"
+					 left="10"
+					 right="10"
+					 bottom="40"
+					 url="module/MyModule.swf"/>
+</s:Group>

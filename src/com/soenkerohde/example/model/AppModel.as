@@ -13,25 +13,28 @@ package com.soenkerohde.example.model
 		public var so:ISharedObjectBean;
 
 		[Bindable]
-		public function get appState():String
+		public var appState:String = "login";
+
+		[Bindable]
+		public function get mainState():String
 		{
-			return so.getString("appState", "login");
+			return so.getString("mainState", "chart");
 		}
 
-		public function set appState(state:String):void
+		public function set mainState(state:String):void
 		{
-			so.setString("appState", state);
+			so.setString("mainState", state);
 		}
 
 		[Bindable]
-		public function get appIndex():int
+		public function get mainIndex():int
 		{
-			return so.getInt("appIndex", 0);
+			return so.getInt("mainIndex", 0);
 		}
 
-		public function set appIndex(index:int):void
+		public function set mainIndex(index:int):void
 		{
-			so.setInt("appIndex", index);
+			so.setInt("mainIndex", index);
 		}
 
 		[Bindable]

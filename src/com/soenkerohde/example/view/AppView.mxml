@@ -2,38 +2,34 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 currentState="{model.appState}" xmlns:view="com.soenkerohde.example.view.*">
+		 xmlns:view="com.soenkerohde.example.view.*"
+		 currentState="{model.appState}">
 
 	<fx:Script>
 		<![CDATA[
 			import com.soenkerohde.example.model.presentation.IAppPresentationModel;
-			
+
 			[Bindable]
 			[Inject]
 			public var model:IAppPresentationModel;
-
 		]]>
 	</fx:Script>
-	
+
 	<s:states>
-		<s:State name="login" />
-		<s:State name="chart" />
-		<s:State name="user" />
-		<s:State name="module" />
+		<s:State name="login"/>
+		<s:State name="main"/>
 	</s:states>
-	
+
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
 
-	<s:ButtonBar top="10" left="10" dataProvider="{model.navigation}" requireSelection="true"
-				 selectedIndex="{model.appIndex}"
-			 	 change="model.changeAppIndex(event.newIndex)"/>
-	
-	<view:LoginView includeIn="login" horizontalCenter="0" verticalCenter="0" />
-	<view:ChartView includeIn="chart" top="50" left="10" right="10" bottom="40" />
-	<view:UserView includeIn="user" top="50" left="10" right="10" bottom="40" />
-	<mx:ModuleLoader includeIn="module" top="50" left="10" right="10" bottom="40"
-					 url="module/MyModule.swf"/>
+	<view:LoginView includeIn="login"
+					horizontalCenter="0"
+					verticalCenter="0"/>
+
+	<view:MainView includeIn="main"
+				   width="100%"
+				   height="100%"/>
 
 </s:Group>

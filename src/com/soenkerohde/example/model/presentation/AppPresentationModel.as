@@ -11,32 +11,33 @@ package com.soenkerohde.example.model.presentation
 		public var appState:String;
 
 		[Bindable]
-		[Inject(source="appModel.appIndex", twoWay="true")]
-		public var appIndex:int;
+		[Inject(source="appModel.mainState", twoWay="true")]
+		public var mainState:String;
 
 		[Bindable]
-		public var navigation:IList = new ArrayCollection(["login", "chart", "user", "module"]);
+		[Inject(source="appModel.mainIndex", twoWay="true")]
+		public var mainIndex:int;
+
+		[Bindable]
+		public var navigation:IList = new ArrayCollection(["chart", "user", "module"]);
 
 		public function AppPresentationModel()
 		{
 		}
 
-		public function changeAppIndex(index:int):void
+		public function changeMainIndex(index:int):void
 		{
-			appIndex = index;
-			switch( index )
+			mainIndex = index;
+			switch (index)
 			{
 				case 0:
-					appState = "login";
+					mainState = "chart";
 					break;
 				case 1:
-					appState = "chart";
+					mainState = "user";
 					break;
 				case 2:
-					appState = "user";
-					break;
-				case 3:
-					appState = "module";
+					mainState = "module";
 					break;
 				default:
 					throw new Error("Unknown index " + index);
