@@ -18,7 +18,7 @@ package com.soenkerohde.example.ctrl
 		{
 		}
 
-		[Mediate(event="CRUDEvent.*")]
+		[Mediate(event="UserCRUDEvent.*")]
 		public function handleCRUDEvent(event:UserCRUDEvent):void
 		{
 			LOG.info("handleCRUDEvent " + event.type + " user: " + event.user);

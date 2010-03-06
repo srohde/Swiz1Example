@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:WindowedApplication width="800" height="600" xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:WindowedApplication width="800"
+					   height="600"
+					   xmlns:fx="http://ns.adobe.com/mxml/2009"
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/halo"
 					   xmlns:swiz="http://swiz.swizframework.org">
-	
+
 	<fx:Declarations>
 
-		<s:TraceTarget includeCategory="true" includeLevel="true" includeTime="true" />
-		
-		<swiz:SwizConfig id="config" eventPackages="com.soenkerohde.example.event.*"
-						 viewPackages="com.soenkerohde.example.view.*" />
-		
-		<swiz:Swiz beanProviders="{[Beans]}" config="{config}">
+		<s:TraceTarget includeCategory="true"
+					   includeLevel="true"
+					   includeTime="true"/>
+
+		<swiz:SwizConfig id="config"
+						 eventPackages="com.soenkerohde.example.event.*"
+						 viewPackages="com.soenkerohde.example.view.*"/>
+
+		<swiz:Swiz beanProviders="{[Beans]}"
+				   config="{config}">
 			<swiz:customProcessors>
-				<processor:YahooFinanceProcessor xmlns:processor="com.soenkerohde.example.processor.*" />
-				<processors:MediateSignalProcessor signalPackages="com.soenkerohde.example.signal.*" xmlns:processors="com.foomonger.swizframework.processors.*" />
+				<processor:YahooFinanceProcessor xmlns:processor="com.soenkerohde.example.processor.*"/>
+				<processors:MediateSignalProcessor signalPackages="com.soenkerohde.example.signal.*"
+												   xmlns:processors="com.foomonger.swizframework.processors.*"/>
 			</swiz:customProcessors>
 		</swiz:Swiz>
-		
+
 	</fx:Declarations>
 
 	<view:AppView left="10"
 				  right="10"
 				  top="10"
 				  bottom="10"
-				  xmlns:view="com.soenkerohde.example.view.*" />
+				  xmlns:view="com.soenkerohde.example.view.*"/>
 
 </s:WindowedApplication>
