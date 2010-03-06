@@ -3,15 +3,18 @@ package com.soenkerohde.example.ctrl
 	import com.soenkerohde.example.business.IUserDelegate;
 	import com.soenkerohde.example.model.AppModel;
 
+	import flash.events.IEventDispatcher;
+
 	import mx.collections.IList;
 	import mx.logging.ILogger;
 	import mx.logging.Log;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.events.ResultEvent;
 
+	import org.swizframework.core.IDispatcherAware;
 	import org.swizframework.utils.services.ServiceRequestUtil;
 
-	public class AppController
+	public class AppController implements IDispatcherAware
 	{
 		private static const LOG:ILogger = Log.getLogger("AppController");
 
@@ -23,6 +26,20 @@ package com.soenkerohde.example.ctrl
 
 		[Inject]
 		public var serviceRequestUtil:ServiceRequestUtil;
+
+		private var _dispatcher:IEventDispatcher;
+
+		/**
+		 * IDispatcherAware implementation. Will be automatically set from Swiz.
+		 * Use this dispatcher instance to dispatch events Swiz should handle
+		 *
+		 * @param dispatcher Swiz dispacther.
+		 *
+		 */
+		public function set dispatcher(dispatcher:IEventDispatcher):void
+		{
+			_dispatcher = dispatcher;
+		}
 
 		public function AppController()
 		{

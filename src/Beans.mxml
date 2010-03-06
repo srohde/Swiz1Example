@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swiz:BeanProvider xmlns:swiz="http://swiz.swizframework.org" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	xmlns:model="com.soenkerohde.example.model.*"
+	xmlns:ctrl="com.soenkerohde.example.ctrl.*"
+	xmlns:signal="com.soenkerohde.example.signal.*"
+	xmlns:business="com.soenkerohde.example.business.*"
+	xmlns:storage="org.swizframework.storage.*"
+	xmlns:presentation="com.soenkerohde.example.model.presentation.*">
+	
+	<!-- App level beans -->
+	<swiz:Bean name="appModel">
+		<model:AppModel />
+	</swiz:Bean>
+	
+	<!-- Used for state persisting -->
+	<storage:SharedObjectBean name="Swiz1Example" />
+	<presentation:AppPresentationModel />
+	<ctrl:AppController />
+	
+	<!-- Login related beans -->
+	<ctrl:LoginController />
+	<business:UserDelegate />
+	<!-- for login with as3-signals example -->
+	<signal:LoginInvokeSignal />
+	<signal:LoginSignal />
+	<swiz:ServiceRequestUtil />
+	
+	<!-- command related beans -->
+	<ctrl:UserController />
+	
+</swiz:BeanProvider>

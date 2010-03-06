@@ -9,7 +9,7 @@ package com.soenkerohde.example.ctrl
 	public class UserController
 	{
 
-		private static const LOG:ILogger = Log.getLogger("CommandController");
+		private static const LOG:ILogger = Log.getLogger("UserController");
 
 		[Inject]
 		public var delegate:IUserDelegate;

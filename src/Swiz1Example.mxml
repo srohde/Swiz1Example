@@ -2,57 +2,28 @@
 <s:WindowedApplication width="800" height="600" xmlns:fx="http://ns.adobe.com/mxml/2009"
 					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/halo"
-					   xmlns:swiz="http://swiz.swizframework.org"
-					   xmlns:processor="com.soenkerohde.example.processor.*"
-						xmlns:model="com.soenkerohde.example.model.*"
-						xmlns:ctrl="com.soenkerohde.example.ctrl.*"
-					    xmlns:signal="com.soenkerohde.example.signal.*"
-					xmlns:processors="com.foomonger.swizframework.processors.*"
-					xmlns:business="com.soenkerohde.example.business.*" xmlns:storage="org.swizframework.storage.*" xmlns:presentation="com.soenkerohde.example.model.presentation.*">
+					   xmlns:swiz="http://swiz.swizframework.org">
 	
 	<fx:Declarations>
 
 		<s:TraceTarget includeCategory="true" includeLevel="true" includeTime="true" />
 		
-		<swiz:Swiz>
-			<swiz:config>
-				<swiz:SwizConfig eventPackages="com.soenkerohde.example.event.*"
-								 viewPackages="com.soenkerohde.example.view.*" />
-			</swiz:config>
-			<swiz:BeanProvider>
-				<!-- App level beans -->
-				<swiz:Bean name="appModel">
-					<model:AppModel />
-				</swiz:Bean>
-				<!-- Used for state persisting -->
-				<storage:SharedObjectBean name="Swiz1Example" />
-				<presentation:AppPresentationModel />
-				<ctrl:AppController />
-				
-				<!-- Login related beans -->
-				<ctrl:LoginController />
-				<business:UserDelegate />
-				<!-- for login with as3-signals example -->
-				<signal:LoginInvokeSignal />
-				<signal:LoginSignal />
-				<swiz:ServiceRequestUtil />
-				
-				<!-- command related beans -->
-				<ctrl:UserController />
-
-			</swiz:BeanProvider>
+		<swiz:SwizConfig id="config" eventPackages="com.soenkerohde.example.event.*"
+						 viewPackages="com.soenkerohde.example.view.*" />
+		
+		<swiz:Swiz beanProviders="{[Beans]}" config="{config}">
 			<swiz:customProcessors>
-				<processor:YahooFinanceProcessor />
-				<processors:MediateSignalProcessor signalPackages="com.soenkerohde.example.signal.*" />
+				<processor:YahooFinanceProcessor xmlns:processor="com.soenkerohde.example.processor.*" />
+				<processors:MediateSignalProcessor signalPackages="com.soenkerohde.example.signal.*" xmlns:processors="com.foomonger.swizframework.processors.*" />
 			</swiz:customProcessors>
 		</swiz:Swiz>
 		
 	</fx:Declarations>
 
 	<view:AppView left="10"
-				   right="10"
-				   top="10"
-				   bottom="10"
-				   xmlns:view="com.soenkerohde.example.view.*" />
+				  right="10"
+				  top="10"
+				  bottom="10"
+				  xmlns:view="com.soenkerohde.example.view.*" />
 
 </s:WindowedApplication>
