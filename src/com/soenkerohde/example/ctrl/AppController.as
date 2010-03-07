@@ -49,6 +49,11 @@ package com.soenkerohde.example.ctrl
 		}
 
 		[PostConstruct]
+		/**
+		 * Any method marked with PostConstruct is executed when Swiz
+		 * has done all initial work.
+		 * 
+		 */		
 		public function init():void
 		{
 			// This could be the starting point of your application when
@@ -65,16 +70,21 @@ package com.soenkerohde.example.ctrl
 			serviceRequestUtil.executeServiceCall(token, usersResultHandler);
 		}
 
+		/**
+		 * Service call result handler. 
+		 * @param event
+		 * 
+		 */		
+		protected function usersResultHandler(event:ResultEvent):void
+		{
+			model.users = event.result as IList;
+		}
+		
 		[Mediate(event="UserEvent.LOGOUT", properties="user")]
 		public function logout(user:User):void
 		{
 			LOG.info("logging out " + user);
 			model.setUser(null);
-		}
-
-		protected function usersResultHandler(event:ResultEvent):void
-		{
-			model.users = event.result as IList;
 		}
 
 	}
