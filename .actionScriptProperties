@@ -17,8 +17,6 @@
       <airExcludes/>
     </application>
   </applications>
-  <modules>
-    <module application="src/Swiz1Example.mxml" destPath="module/MyModule.swf" optimize="true" sourcePath="src/module/MyModule.mxml"/>
-  </modules>
+  <modules/>
   <buildCSSFiles/>
 </actionScriptProperties>

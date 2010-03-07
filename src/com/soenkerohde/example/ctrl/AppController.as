@@ -2,6 +2,7 @@ package com.soenkerohde.example.ctrl
 {
 	import com.soenkerohde.example.business.IUserDelegate;
 	import com.soenkerohde.example.model.AppModel;
+	import com.soenkerohde.example.model.domain.User;
 
 	import flash.events.IEventDispatcher;
 
@@ -53,8 +54,22 @@ package com.soenkerohde.example.ctrl
 			// This could be the starting point of your application when
 			// you for instance make an initial service call etc.
 			// In that case inject the service delegate and call it here.
+		}
+
+		[Mediate(event="UserEvent.LOGIN", properties="user")]
+		public function loginHandler(user:User):void
+		{
+			model.setUser(user);
+
 			var token:AsyncToken = delegate.loadUsers();
 			serviceRequestUtil.executeServiceCall(token, usersResultHandler);
+		}
+
+		[Mediate(event="UserEvent.LOGOUT", properties="user")]
+		public function logout(user:User):void
+		{
+			LOG.info("logging out " + user);
+			model.setUser(null);
 		}
 
 		protected function usersResultHandler(event:ResultEvent):void

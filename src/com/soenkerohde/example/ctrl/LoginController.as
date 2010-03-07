@@ -1,23 +1,23 @@
 package com.soenkerohde.example.ctrl
 {
 	import com.soenkerohde.example.business.IUserDelegate;
-	import com.soenkerohde.example.model.domain.User;
 	import com.soenkerohde.example.event.LoginEvent;
-	import com.soenkerohde.example.model.AppModel;
+	import com.soenkerohde.example.event.UserEvent;
+	import com.soenkerohde.example.model.domain.User;
+
+	import flash.events.IEventDispatcher;
 
 	import mx.logging.ILogger;
 	import mx.logging.Log;
 	import mx.rpc.AsyncToken;
 	import mx.rpc.events.ResultEvent;
 
+	import org.swizframework.core.IDispatcherAware;
 	import org.swizframework.utils.services.ServiceRequestUtil;
 
-	public class LoginController
+	public class LoginController implements IDispatcherAware
 	{
 		private static const LOG:ILogger = Log.getLogger("LoginController");
-
-		[Inject]
-		public var model:AppModel;
 
 		/**
 		 * The login controller needs the service delegate.
@@ -26,17 +26,30 @@ package com.soenkerohde.example.ctrl
 		[Inject]
 		public var delegate:IUserDelegate;
 
+		[Inject]
 		/**
 		 * We could create an own instance of ServiceRequestUtil but best practice is to decleare
 		 * in BeanProvider so in only gets created once when used multiple times.
 		 */
-		[Inject]
 		public var serviceRequestUtil:ServiceRequestUtil;
+
+		private var _dispatcher:IEventDispatcher;
+
+		/**
+		 * IDispatcherAware implementation.
+		 * @param dispatcher Swiz dispatcher instance.
+		 *
+		 */
+		public function set dispatcher(dispatcher:IEventDispatcher):void
+		{
+			_dispatcher = dispatcher;
+		}
 
 		public function LoginController()
 		{
 		}
 
+		[Mediate(event="LoginEvent.LOGIN", priority="1")]
 		/**
 		 * Mediate has higher priority (default is 0) and is called first when event gets dispatched.
 		 * When you call stopImmediatePropagation on the event all other event listeners are skipped.
@@ -44,7 +57,6 @@ package com.soenkerohde.example.ctrl
 		 *
 		 * @param event
 		 */
-		[Mediate(event="LoginEvent.LOGIN", priority="1")]
 		public function loginEventHandler(event:LoginEvent):void
 		{
 			if (event.username == "" || event.password == "")
@@ -54,6 +66,7 @@ package com.soenkerohde.example.ctrl
 			}
 		}
 
+		[Mediate(event="LoginEvent.LOGIN", properties="username, password")]
 		/**
 		 * The properties have to match the getters of the event.
 		 * You can pass all public properties of an event.
@@ -62,7 +75,6 @@ package com.soenkerohde.example.ctrl
 		 * @param password See above
 		 *
 		 */
-		[Mediate(event="LoginEvent.LOGIN", properties="username, password")]
 		public function login(username:String, password:String):void
 		{
 			LOG.info("login " + username + "/" + password);
@@ -80,9 +92,10 @@ package com.soenkerohde.example.ctrl
 		{
 			var user:User = event.result as User;
 			LOG.info("loginResultHandler " + user);
-			model.user = user;
-			model.appState = "main";
+			_dispatcher.dispatchEvent(new UserEvent(UserEvent.LOGIN, user));
 		}
+
+		/* AS3-Signal based login version */
 
 		[MediateSignal(type="LoginInvokeSignal")]
 		public function loginInvokeSignal(username:String, password:String):void
@@ -95,7 +108,7 @@ package com.soenkerohde.example.ctrl
 		public function loginSignal(user:User):void
 		{
 			LOG.info("loginSignal " + user);
-			model.appState = "main";
+			_dispatcher.dispatchEvent(new UserEvent(UserEvent.LOGIN, user));
 		}
 	}
 }

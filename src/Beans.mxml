@@ -15,6 +15,10 @@
 		]]>
 	</fx:Script>
 
+	<!-- Main Application controller. It contains a PostConstruct annotation which
+		 can be used as the main starting point of the application. -->
+	<ctrl:AppController/>
+
 	<!-- App level beans -->
 	<swiz:Bean name="appModel">
 		<model:AppModel/>
@@ -22,19 +26,26 @@
 
 	<!-- Used for state persisting -->
 	<storage:SharedObjectBean name="Swiz1Example"/>
-	<presentation:AppPresentationModel/>
-	<ctrl:AppController/>
-	<swiz:Prototype type="{MainPresentationModel}"/>
 
-	<!-- Login related beans -->
+	<!-- Login/User related beans -->
 	<ctrl:LoginController/>
+	<ctrl:UserController/>
 	<business:UserDelegate/>
+
 	<!-- for login with as3-signals example -->
 	<signal:LoginInvokeSignal/>
 	<signal:LoginSignal/>
+
+	<!-- Used in AppController and LoginController to make service calls.
+		 Best practice is to declare it as a bean so only one instance will be created. -->
 	<swiz:ServiceRequestUtil/>
 
-	<!-- command related beans -->
-	<ctrl:UserController/>
+	<!-- Presentation models in general should be declared in a Prototype tag.
+		 This means the bean will only be created when it is actually needed.
+		 In this case it is used in the MainView which is the second app state.
+		 So if you set a break point in the MainPresentationModel constructor you will see
+		 that it will be created after the login is done and the appState switches to "main" -->
+	<swiz:Prototype type="{MainPresentationModel}"
+					constructorArguments="{dispatcher}"/>
 
 </swiz:BeanProvider>

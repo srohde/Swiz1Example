@@ -3,15 +3,17 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:view="com.soenkerohde.example.view.*"
-		 currentState="{model.appState}">
+		 currentState="{appState}">
 
 	<fx:Script>
 		<![CDATA[
-			import com.soenkerohde.example.model.presentation.IAppPresentationModel;
-
 			[Bindable]
-			[Inject]
-			public var model:IAppPresentationModel;
+			[Inject("appState")]
+			/**
+			 * We inject the outjected appState from AppModel
+			 * @see com.soenkerohde.example.model.AppModel
+			 */
+			public var appState:String;
 		]]>
 	</fx:Script>
 

@@ -1,5 +1,10 @@
 package com.soenkerohde.example.model.presentation
 {
+	import com.soenkerohde.example.event.UserEvent;
+	import com.soenkerohde.example.model.domain.User;
+
+	import flash.events.IEventDispatcher;
+
 	import mx.collections.ArrayCollection;
 	import mx.collections.IList;
 
@@ -9,6 +14,10 @@ package com.soenkerohde.example.model.presentation
 	{
 		[Inject]
 		public var so:ISharedObjectBean;
+
+		[Bindable]
+		[Inject("appModel.user")]
+		public var user:User;
 
 		[Bindable]
 		public function get mainState():String
@@ -33,10 +42,13 @@ package com.soenkerohde.example.model.presentation
 		}
 
 		[Bindable]
-		public var navigation:IList = new ArrayCollection(["chart", "user", "module"]);
+		public var navigation:IList = new ArrayCollection(["chart", "user"]);
 
-		public function MainPresentationModel()
+		private var _dispatcher:IEventDispatcher;
+
+		public function MainPresentationModel(dispatcher:IEventDispatcher)
 		{
+			_dispatcher = dispatcher;
 		}
 
 		public function changeMainIndex(index:int):void
@@ -50,12 +62,14 @@ package com.soenkerohde.example.model.presentation
 				case 1:
 					mainState = "user";
 					break;
-				case 2:
-					mainState = "module";
-					break;
 				default:
 					throw new Error("Unknown index " + index);
 			}
+		}
+
+		public function logout():void
+		{
+			_dispatcher.dispatchEvent(new UserEvent(UserEvent.LOGOUT, user));
 		}
 
 	}

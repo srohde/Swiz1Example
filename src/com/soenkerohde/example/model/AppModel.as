@@ -8,6 +8,13 @@ package com.soenkerohde.example.model
 	{
 
 		[Bindable]
+		[Outject("appState")]
+		/**
+		 * Application state value.
+		 * We use Swiz Outject so the AppView can use
+		 * [Inject("appState")]
+		 * public var appState:String;
+		 */
 		public var appState:String = "login";
 
 		[Bindable]
@@ -19,5 +26,12 @@ package com.soenkerohde.example.model
 		public function AppModel()
 		{
 		}
+
+		public function setUser(user:User):void
+		{
+			this.user = user;
+			appState = user != null ? "main" : "login";
+		}
+
 	}
 }
