@@ -19,10 +19,11 @@
 		 can be used as the main starting point of the application. -->
 	<ctrl:AppController/>
 
-	<!-- App level beans -->
+	<!-- App level beans
 	<swiz:Bean name="appModel">
 		<model:AppModel/>
-	</swiz:Bean>
+	</swiz:Bean> -->
+	<model:AppModel id="appModel"/>
 
 	<!-- Used for state persisting -->
 	<storage:SharedObjectBean name="Swiz1Example"/>
