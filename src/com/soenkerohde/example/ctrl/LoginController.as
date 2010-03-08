@@ -14,6 +14,7 @@ package com.soenkerohde.example.ctrl
 	import mx.rpc.events.ResultEvent;
 
 	import org.swizframework.core.IDispatcherAware;
+	import org.swizframework.storage.ISharedObjectBean;
 	import org.swizframework.utils.services.ServiceRequestUtil;
 
 	public class LoginController implements IDispatcherAware
@@ -26,6 +27,9 @@ package com.soenkerohde.example.ctrl
 		 */
 		[Inject]
 		public var delegate:IUserDelegate;
+
+		[Inject]
+		public var so:ISharedObjectBean;
 
 		[Inject]
 		public var model:LoginModel;
@@ -51,6 +55,12 @@ package com.soenkerohde.example.ctrl
 
 		public function LoginController()
 		{
+		}
+
+		[PostConstruct]
+		public function init():void
+		{
+			model.username = so.getString("username", "");
 		}
 
 		[Mediate(event="LoginEvent.LOGIN", priority="1")]
@@ -94,6 +104,7 @@ package com.soenkerohde.example.ctrl
 		 */
 		protected function loginResultHandler(event:ResultEvent, username:String, password:String):void
 		{
+			so.setString("username", username);
 			model.username = username;
 			model.password = password;
 			var user:User = event.result as User;

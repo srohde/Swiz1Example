@@ -6,7 +6,7 @@ package com.soenkerohde.example.model
 	{
 
 		[Bindable]
-		public var username:String = "SomeDude";
+		public var username:String = "";
 
 		[Bindable]
 		public var password:String = "";
