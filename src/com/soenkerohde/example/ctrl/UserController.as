@@ -22,6 +22,25 @@ package com.soenkerohde.example.ctrl
 		public function handleCRUDEvent(event:UserCRUDEvent):void
 		{
 			LOG.info("handleCRUDEvent " + event.type + " user: " + event.user);
+
+			switch (event.type)
+			{
+				case UserCRUDEvent.CREATE:
+					// TODO implement CREATE
+					break;
+				case UserCRUDEvent.READ:
+					// TODO implement READ
+					break;
+				case UserCRUDEvent.UPDATE:
+					// TODO implement UPDATE
+					break;
+				case UserCRUDEvent.DELETE:
+					// TODO implement DELETE
+					break;
+				default:
+					throw new Error("Unknown event type " + event.type);
+			}
+
 		}
 	}
 }
