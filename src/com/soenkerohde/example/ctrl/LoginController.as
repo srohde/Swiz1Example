@@ -3,6 +3,7 @@ package com.soenkerohde.example.ctrl
 	import com.soenkerohde.example.business.IUserDelegate;
 	import com.soenkerohde.example.event.LoginEvent;
 	import com.soenkerohde.example.event.UserEvent;
+	import com.soenkerohde.example.model.LoginModel;
 	import com.soenkerohde.example.model.domain.User;
 
 	import flash.events.IEventDispatcher;
@@ -25,6 +26,9 @@ package com.soenkerohde.example.ctrl
 		 */
 		[Inject]
 		public var delegate:IUserDelegate;
+
+		[Inject]
+		public var model:LoginModel;
 
 		[Inject]
 		/**
@@ -79,7 +83,7 @@ package com.soenkerohde.example.ctrl
 		{
 			LOG.info("login " + username + "/" + password);
 			var token:AsyncToken = delegate.login(username, password);
-			serviceRequestUtil.executeServiceCall(token, loginResultHandler);
+			serviceRequestUtil.executeServiceCall(token, loginResultHandler, null, [username, password]);
 		}
 
 		/**
@@ -88,10 +92,13 @@ package com.soenkerohde.example.ctrl
 		 * @param event ResultEvent containing the user in the result property.
 		 *
 		 */
-		protected function loginResultHandler(event:ResultEvent):void
+		protected function loginResultHandler(event:ResultEvent, username:String, password:String):void
 		{
+			model.username = username;
+			model.password = password;
 			var user:User = event.result as User;
 			LOG.info("loginResultHandler " + user);
+			model.setUser(user);
 			_dispatcher.dispatchEvent(new UserEvent(UserEvent.LOGIN, user));
 		}
 
@@ -109,6 +116,12 @@ package com.soenkerohde.example.ctrl
 		{
 			LOG.info("loginSignal " + user);
 			_dispatcher.dispatchEvent(new UserEvent(UserEvent.LOGIN, user));
+		}
+
+		[Mediate(event="UserEvent.LOGOUT", properties="user")]
+		public function logout(user:User):void
+		{
+			model.password = "";
 		}
 	}
 }

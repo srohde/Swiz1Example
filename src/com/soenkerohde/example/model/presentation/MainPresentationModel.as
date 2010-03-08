@@ -16,7 +16,7 @@ package com.soenkerohde.example.model.presentation
 		public var so:ISharedObjectBean;
 
 		[Bindable]
-		[Inject("appModel.user")]
+		[Inject("loginModel.user")]
 		public var user:User;
 
 		[Bindable]

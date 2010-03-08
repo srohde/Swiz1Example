@@ -11,7 +11,7 @@
 				   xmlns:presentation="com.soenkerohde.example.model.presentation.*">
 	<fx:Script>
 		<![CDATA[
-			import com.soenkerohde.example.model.presentation.MainPresentationModel;
+			import com.soenkerohde.example.model.presentation.*;
 		]]>
 	</fx:Script>
 
@@ -19,11 +19,8 @@
 		 can be used as the main starting point of the application. -->
 	<ctrl:AppController/>
 
-	<!-- App level beans
-	<swiz:Bean name="appModel">
-		<model:AppModel/>
-	</swiz:Bean> -->
 	<model:AppModel id="appModel"/>
+	<model:LoginModel id="loginModel"/>
 
 	<!-- Used for state persisting -->
 	<storage:SharedObjectBean name="Swiz1Example"/>
@@ -47,6 +44,9 @@
 		 So if you set a break point in the MainPresentationModel constructor you will see
 		 that it will be created after the login is done and the appState switches to "main" -->
 	<swiz:Prototype type="{MainPresentationModel}"
+					constructorArguments="{dispatcher}"/>
+
+	<swiz:Prototype type="{LoginPresentationModel}"
 					constructorArguments="{dispatcher}"/>
 
 </swiz:BeanProvider>

@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx">
 
 	<s:layout>
 		<s:VerticalLayout/>
 	</s:layout>
-	
+
 	<fx:Script>
 		<![CDATA[
-			import com.soenkerohde.example.event.LoginEvent;
-			import com.soenkerohde.example.signal.LoginInvokeSignal;
-			
-			import mx.logging.ILogger;
-			import mx.logging.Log;
-			
-			private static const LOG:ILogger = Log.getLogger("LoginView");
-			
+			import com.soenkerohde.example.model.presentation.ILoginPresentationModel;
+
+			[Bindable]
 			[Inject]
-			public var loginInvokeSignal:LoginInvokeSignal;
-			
+			public var model:ILoginPresentationModel;
+
 			protected function loginClickHandler(event:MouseEvent):void
 			{
-				if(byEvent.selected){
-					if(dispatchEvent(new LoginEvent(LoginEvent.LOGIN, username.text, password.text))){
-						// if we arrive here LoginEvent was not canceled (no preventDefault called by any event handler)
-						LOG.info("LoginEvent not cancelled");
-					}else{
-						LOG.info("LoginEvent cancelled");
-					}
-				}else{
-					loginInvokeSignal.dispatch(username.text, password.text);
-				}
+				model.login(username.text, password.text, byEvent.selected);
 			}
 		]]>
 	</fx:Script>
 
 	<mx:Form>
-		<s:RadioButton id="byEvent" label="byEvent" selected="true" groupName="loginType" />
-		<s:RadioButton id="bySignal" label="bySignal" groupName="loginType" />
-		
+		<s:RadioButton id="byEvent"
+					   label="byEvent"
+					   selected="true"
+					   groupName="loginType"/>
+		<s:RadioButton id="bySignal"
+					   label="bySignal"
+					   groupName="loginType"/>
+
 		<mx:FormItem label="Username">
-			<s:TextInput id="username" text="Some Dude" />
+			<s:TextInput id="username"
+						 text="{model.username}"/>
 		</mx:FormItem>
-		<mx:FormItem label="Password" direction="horizontal">
-			<s:TextInput id="password" displayAsPassword="true" text="" creationComplete="{password.setFocus()}" />
-			<s:Button label="Login" click="loginClickHandler(event)" />
+		<mx:FormItem label="Password"
+					 direction="horizontal">
+			<s:TextInput id="password"
+						 displayAsPassword="true"
+						 text="{model.password}"
+						 creationComplete="{password.setFocus()}"/>
+			<s:Button label="Login"
+					  click="loginClickHandler(event)"/>
 		</mx:FormItem>
 	</mx:Form>
 </s:Group>
