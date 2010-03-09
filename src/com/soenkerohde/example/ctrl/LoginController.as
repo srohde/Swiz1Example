@@ -92,6 +92,7 @@ package com.soenkerohde.example.ctrl
 		public function login(username:String, password:String):void
 		{
 			LOG.info("login " + username + "/" + password);
+			model.pending = true;
 			var token:AsyncToken = delegate.login(username, password);
 			serviceRequestUtil.executeServiceCall(token, loginResultHandler, null, [username, password]);
 		}
@@ -104,6 +105,7 @@ package com.soenkerohde.example.ctrl
 		 */
 		protected function loginResultHandler(event:ResultEvent, username:String, password:String):void
 		{
+			model.pending = false;
 			so.setString("username", username);
 			model.username = username;
 			model.password = password;

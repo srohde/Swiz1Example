@@ -24,7 +24,7 @@ package com.soenkerohde.example.business
 
 		public function login(username:String, password:String):AsyncToken
 		{
-			var user:User = new User(1, username);
+			var user:User = new User(1500, username);
 			return util.createMockResult(user);
 		}
 
@@ -34,7 +34,9 @@ package com.soenkerohde.example.business
 			a.push(new User(1, "Adam"));
 			a.push(new User(2, "Ben"));
 			a.push(new User(3, "Brian"));
+			a.push(new User(3, "Chris"));
 			a.push(new User(4, "Darron"));
+			a.push(new User(4, "David"));
 			a.push(new User(5, "Chris"));
 			a.push(new User(6, "John"));
 			a.push(new User(7, "Ryan"));

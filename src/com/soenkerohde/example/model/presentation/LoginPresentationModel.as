@@ -2,9 +2,9 @@ package com.soenkerohde.example.model.presentation
 {
 	import com.soenkerohde.example.event.LoginEvent;
 	import com.soenkerohde.example.signal.LoginInvokeSignal;
-
+	
 	import flash.events.IEventDispatcher;
-
+	
 	import mx.logging.ILogger;
 	import mx.logging.Log;
 
@@ -22,6 +22,13 @@ package com.soenkerohde.example.model.presentation
 		[Bindable]
 		[Inject("loginModel.password")]
 		public var password:String;
+		
+		[Bindable]
+		[Inject("loginModel.pending")]
+		public var pending:Boolean;
+		
+		[Bindable]
+		public var error:String = "";
 
 		private var _dispatcher:IEventDispatcher;
 
@@ -38,9 +45,11 @@ package com.soenkerohde.example.model.presentation
 				{
 					// if we arrive here LoginEvent was not canceled (no preventDefault called by any event handler)
 					LOG.info("LoginEvent not cancelled");
+					error = "";
 				}
 				else
 				{
+					error = "Please enter username and password.";
 					LOG.info("LoginEvent cancelled");
 				}
 			}

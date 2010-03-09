@@ -39,10 +39,10 @@
 					 direction="horizontal">
 			<s:TextInput id="password"
 						 displayAsPassword="true"
-						 text="{model.password}"
-						 creationComplete="{password.setFocus()}"/>
-			<s:Button label="Login"
+						 text="{model.password}"/>
+			<s:Button label="Login" enabled="{!model.pending}"
 					  click="loginClickHandler(event)"/>
 		</mx:FormItem>
+		<s:Label text="{model.error}" color="#ff0000" />
 	</mx:Form>
 </s:Group>

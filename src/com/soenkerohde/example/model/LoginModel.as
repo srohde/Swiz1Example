@@ -13,6 +13,9 @@ package com.soenkerohde.example.model
 
 		[Bindable]
 		public var user:User;
+		
+		[Bindable]
+		public var pending:Boolean = false;
 
 		public function LoginModel()
 		{
